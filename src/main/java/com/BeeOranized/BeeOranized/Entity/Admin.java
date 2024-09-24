@@ -7,15 +7,14 @@ import javax.persistence.Table;
 import java.util.Set;
 
 @Entity
-@Table(name="admins")
+@Table(name = "admins")
 @DiscriminatorValue("admin")
-public class Admin extends User{
+public class Admin extends User {
 
-    public Admin(String name,String email, String password, String city,
-                     Set<Role> roles
-    ) {
+    public Admin(String name, String email, String password, String city,
+            Set<Role> roles) {
 
-        super(name,email, password, city, roles);
+        super(name, email, password, city, roles);
         this.adminFirstName = adminFirstName;
         this.adminLastName = adminLastName;
         this.adminBirthDay = adminBirthDay;

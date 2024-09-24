@@ -2,7 +2,6 @@ package com.BeeOranized.BeeOranized.Security.jwt;
 
 import java.io.IOException;
 
-
 import com.BeeOranized.BeeOranized.Securit.service.UserDetailsServiceImpl;
 
 import org.slf4j.Logger;
@@ -63,4 +62,3 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         return null;
     }
 }
-

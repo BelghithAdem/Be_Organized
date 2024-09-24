@@ -1,25 +1,20 @@
 package com.BeeOranized.BeeOranized.Dtos;
 
-
 public class SignupRequestDto {
-private String name;
+    private String name;
 
     private String userEmail;
-
 
     private String userPassword;
 
     private String userRole;
 
-
-
     private String userCity;
 
-
-
-public String getName() {
+    public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -55,6 +50,5 @@ public String getName() {
     public void setUserCity(String userCity) {
         this.userCity = userCity;
     }
-
 
 }

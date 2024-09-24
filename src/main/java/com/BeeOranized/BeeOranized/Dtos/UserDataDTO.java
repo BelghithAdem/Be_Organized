@@ -1,6 +1,5 @@
 package com.BeeOranized.BeeOranized.Dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,5 +17,5 @@ public class UserDataDTO {
     this.lastName = lastName;
     this.firstName = firstName;
   }
-// Getters and setters
+  // Getters and setters
 }

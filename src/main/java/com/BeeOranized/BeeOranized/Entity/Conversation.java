@@ -1,11 +1,8 @@
 package com.BeeOranized.BeeOranized.Entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.BeeOranized.BeeOranized.Entity.User;
-
 
 import javax.persistence.*;
 
@@ -28,6 +25,4 @@ public class Conversation {
   @JoinColumn(name = "user2_id")
   private User user2;
 
-
 }
-

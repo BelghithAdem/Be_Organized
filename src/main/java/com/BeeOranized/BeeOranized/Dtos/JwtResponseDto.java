@@ -2,7 +2,6 @@ package com.BeeOranized.BeeOranized.Dtos;
 
 import java.util.List;
 
-
 public class JwtResponseDto {
     private String token;
     private String type = "Bearer";
@@ -46,4 +45,3 @@ public class JwtResponseDto {
         this.userId = userId;
     }
 }
-

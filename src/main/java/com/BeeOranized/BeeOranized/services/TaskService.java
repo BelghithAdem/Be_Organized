@@ -18,6 +18,7 @@ public class TaskService {
     private TaskRipository taskRepository;
     @Autowired
     private ProjectRepository projectRepository;
+
     @Transactional
     public Task createTask(Task task) {
         // Ensure the task is associated with a project
@@ -47,6 +48,7 @@ public class TaskService {
 
         return createdTask;
     }
+
     public Task updateTaskProgress(Task task) {
         // Ensure the task exists
         if (task.getId() == null) {
@@ -63,6 +65,7 @@ public class TaskService {
         existingTask.setStatus(taskStatus.PENDING);
         return taskRepository.save(existingTask);
     }
+
     public Task updateTaskTesting(Task task) {
         // Ensure the task exists
         if (task.getId() == null) {
@@ -78,6 +81,7 @@ public class TaskService {
         existingTask.setStatus(taskStatus.BLOQUED);
         return taskRepository.save(existingTask);
     }
+
     public Task updateTaskComplete(Task task) {
         if (task.getId() == null) {
             return null;
@@ -91,9 +95,11 @@ public class TaskService {
         existingTask.setStatus(taskStatus.FINISHED);
         return taskRepository.save(existingTask);
     }
+
     public List<Task> getTasksByProjectId(Long projectId) {
         return taskRepository.findByProjectId(projectId);
     }
+
     public Task updateTask(Task task) {
         // Ensure the task exists
         if (task.getId() == null) {
@@ -113,6 +119,7 @@ public class TaskService {
         existingTask.setStatus(task.getStatus());
         return taskRepository.save(existingTask);
     }
+
     public boolean deleteTask(Long id) {
         Task existingTask = taskRepository.findById(id).orElse(null);
         if (existingTask == null) {
@@ -128,9 +135,11 @@ public class TaskService {
         taskRepository.deleteById(id);
         return true;
     }
+
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
+
     public Task getTaskById(Long id) {
         return taskRepository.findById(id).orElse(null);
     }

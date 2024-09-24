@@ -1,6 +1,5 @@
 package com.BeeOranized.BeeOranized.Repository;
 
-import com.BeeOranized.BeeOranized.Entity.Project;
 import com.BeeOranized.BeeOranized.Entity.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

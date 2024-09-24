@@ -1,11 +1,8 @@
 package com.BeeOranized.BeeOranized.Security.jwt;
 
-import java.security.SecureRandom;
-import java.util.Base64;
 import java.util.Date;
 
 import com.BeeOranized.BeeOranized.Securit.service.UserDetailsImpl;
-import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.*;
 
-import javax.crypto.SecretKey;
 
 @Component
 public class JwtUtils {
@@ -33,7 +29,6 @@ public class JwtUtils {
         return Jwts.builder()
                 .setSubject(userPrincipal.getUsername())
                 .claim("roles", userPrincipal.getAuthorities())
-
 
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))

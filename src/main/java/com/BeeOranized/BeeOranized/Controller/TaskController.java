@@ -25,6 +25,7 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
+
     @PutMapping("/task/progress")
     public ResponseEntity<Task> updateTaskProgress(@RequestBody Task task) {
         Task updatedTask = taskService.updateTaskProgress(task);
@@ -34,6 +35,7 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
+
     @PutMapping("/task/testing")
     public ResponseEntity<Task> updateTaskTesting(@RequestBody Task task) {
         Task updatedTask = taskService.updateTaskTesting(task);
@@ -43,6 +45,7 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
+
     @PutMapping("/task/complete")
     public ResponseEntity<Task> updateTaskComplete(@RequestBody Task task) {
         Task updatedTask = taskService.updateTaskComplete(task);
@@ -52,6 +55,7 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
+
     @PutMapping("/task/update")
     public ResponseEntity<Task> updateTask(@RequestBody Task task) {
         Task updatedTask = taskService.updateTask(task);
@@ -61,11 +65,13 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
+
     @GetMapping("/task/{projectId}")
     public ResponseEntity<List<Task>> getTasksByProjectId(@PathVariable Long projectId) {
         List<Task> tasks = taskService.getTasksByProjectId(projectId);
         return ResponseEntity.status(HttpStatus.OK).body(tasks);
     }
+
     @DeleteMapping("/task/{id}")
     public ResponseEntity<String> deleteTask(@PathVariable Long id) {
         boolean isDeleted = taskService.deleteTask(id);
@@ -75,11 +81,13 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Task not found");
         }
     }
+
     @GetMapping("/task")
     public ResponseEntity<List<Task>> getAllTasks() {
         List<Task> tasks = taskService.getAllTasks();
         return ResponseEntity.status(HttpStatus.OK).body(tasks);
     }
+
     @GetMapping("/task/task/{id}")
     public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
         Task task = taskService.getTaskById(id);
@@ -90,4 +98,3 @@ public class TaskController {
         }
     }
 }
-
