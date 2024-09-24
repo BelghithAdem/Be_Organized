@@ -17,8 +17,9 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
     @GetMapping("/users")
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userService.getAllUser();
     }
 
@@ -31,6 +32,7 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @GetMapping("/except/{userId}")
     public ResponseEntity<ApiResponsee> getAllUsersExcept(@PathVariable Long userId) {
         List<UserDataDTO> users = userService.getAllUsersExcept(userId);
@@ -39,26 +41,29 @@ public class UserController {
                         .statusCode(200)
                         .status("Success")
                         .data(users)
-                        .build()
-        );
+                        .build());
     }
+
     /**
      * Retrieve a list of all users except the user with a specific user ID.
      *
      * @param userId The ID of the user to be excluded from the list.
-     * @return ResponseEntity containing an ApiResponse with a list of User objects representing all users except the specified user.
+     * @return ResponseEntity containing an ApiResponse with a list of User objects
+     *         representing all users except the specified user.
      */
 
     /**
      * Find or create a conversation ID for a pair of users based on their user IDs.
-     private final ConversationRepository conversationRepository;
+     * private final ConversationRepository conversationRepository;
      *
      * @param user1Id The ID of the first user in the conversation.
      * @param user2Id The ID of the second user in the conversation.
-     * @return ResponseEntity containing an ApiResponse with the conversation ID for the user pair.
+     * @return ResponseEntity containing an ApiResponse with the conversation ID for
+     *         the user pair.
      */
     @GetMapping("/conversation/id")
-    public ResponseEntity<ApiResponsee> findConversationIdByUser1IdAndUser2Id(@RequestParam int user1Id, @RequestParam int user2Id) {
+    public ResponseEntity<ApiResponsee> findConversationIdByUser1IdAndUser2Id(@RequestParam int user1Id,
+            @RequestParam int user2Id) {
         return userService.findConversationIdByUser1IdAndUser2Id(user1Id, user2Id);
     }
 }

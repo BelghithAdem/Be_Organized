@@ -7,15 +7,14 @@ import javax.persistence.Table;
 import java.util.Set;
 
 @Entity
-@Table(name="Members")
+@Table(name = "Members")
 @DiscriminatorValue("membre")
 public class Membre extends User {
 
-    public Membre(String name,String email, String password, String city,
-                  Set<Role> roles
-    ) {
+    public Membre(String name, String email, String password, String city,
+            Set<Role> roles) {
 
-        super(name,email, password, city, roles);
+        super(name, email, password, city, roles);
         this.membreFirstName = membreFirstName;
         this.membreLastName = membreLastName;
         this.membreBirthDay = membreBirthDay;
@@ -66,6 +65,7 @@ public class Membre extends User {
     public void setMembreGender(String membreGender) {
         this.membreGender = membreGender;
     }
+
     public Membre() {
         super();
     }

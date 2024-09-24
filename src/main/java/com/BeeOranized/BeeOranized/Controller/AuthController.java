@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 import com.BeeOranized.BeeOranized.Dtos.*;
 import com.BeeOranized.BeeOranized.Entity.*;
 import com.BeeOranized.BeeOranized.Repository.*;
@@ -26,7 +25,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-
 @CrossOrigin("http://localhost:4200/")
 @RestController
 public class AuthController {
@@ -37,7 +35,7 @@ public class AuthController {
     UserRepository userRepository;
     @Autowired
     UserService userService;
-@Autowired
+    @Autowired
     EmailService emailService;
     @Autowired
     RoleRepository roleRepository;
@@ -56,7 +54,6 @@ public class AuthController {
 
     @Autowired
     AdminRepository adminRepository;
-
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequestDto loginRequest) {
@@ -115,13 +112,16 @@ public class AuthController {
 
             User newUser;
             if ("Membre_ROLE".equals(signUpRequest.getUserRole())) {
-                Membre membre = new Membre(signUpRequest.getName(), signUpRequest.getUserEmail(), encoder.encode(signUpRequest.getUserPassword()), signUpRequest.getUserCity(), roles);
+                Membre membre = new Membre(signUpRequest.getName(), signUpRequest.getUserEmail(),
+                        encoder.encode(signUpRequest.getUserPassword()), signUpRequest.getUserCity(), roles);
                 newUser = membreRepository.save(membre);
             } else if ("ChefScrum_ROLE".equals(signUpRequest.getUserRole())) {
-                ChefScrum chefScrum = new ChefScrum(signUpRequest.getName(), signUpRequest.getUserEmail(), encoder.encode(signUpRequest.getUserPassword()), signUpRequest.getUserCity(), roles);
+                ChefScrum chefScrum = new ChefScrum(signUpRequest.getName(), signUpRequest.getUserEmail(),
+                        encoder.encode(signUpRequest.getUserPassword()), signUpRequest.getUserCity(), roles);
                 newUser = chefScrumRepository.save(chefScrum);
             } else if ("ADMIN_ROLE".equals(signUpRequest.getUserRole())) {
-                Admin admin = new Admin(signUpRequest.getName(), signUpRequest.getUserEmail(), encoder.encode(signUpRequest.getUserPassword()), signUpRequest.getUserCity(), roles);
+                Admin admin = new Admin(signUpRequest.getName(), signUpRequest.getUserEmail(),
+                        encoder.encode(signUpRequest.getUserPassword()), signUpRequest.getUserCity(), roles);
                 newUser = adminRepository.save(admin);
             } else {
                 return ResponseEntity
@@ -138,6 +138,7 @@ public class AuthController {
             throw new AccessDeniedException("Forbidden access: " + e.getMessage());
         }
     }
+
     private void sendAccountEmail(User user, String password) {
         // Prepare email content
         String subject = "Account Created";
@@ -147,12 +148,9 @@ public class AuthController {
                 "<strong>Password:</strong> <u>" + password + "</u>\n\n" +
                 "Regards,\nYour Team";
 
-
-
         // Send email to the user
         emailService.sendEmail(user.getUserEmail(), subject, message);
     }
-
 
     @PostMapping("/generate/{userEmail}")
     public User generateResetPasswordToken(@PathVariable String userEmail) {
@@ -174,12 +172,13 @@ public class AuthController {
             return null; // or throw an exception, or return an error message
         }
     }
-    private  void sendResetPasswordEmail(User user, String resetPasswordToken) {
+
+    private void sendResetPasswordEmail(User user, String resetPasswordToken) {
         // Prepare email content
         String subject = "Reset Password Request";
         String message = "Dear User,\n\nYou have requested to reset your password.\n" +
                 "Please copy  the reset token below to reset your password:\n\n" +
-                "the reset token is : <strong><u>" + resetPasswordToken + "</u></strong>\n\n"+
+                "the reset token is : <strong><u>" + resetPasswordToken + "</u></strong>\n\n" +
                 "If you did not request this, please ignore this email.\n\nRegards,\nYour Team";
 
         // Send email to the user
@@ -196,7 +195,6 @@ public class AuthController {
                 return false;
             }
 
-
             existingUser.setUserPassword(encoder.encode(request.getNewPassword()));
             existingUser.setResetPasswordToken(null);
             userRepository.save(existingUser);
@@ -207,6 +205,7 @@ public class AuthController {
             return false; // or throw an exception, or return an error message
         }
     }
+
     @PutMapping("/users/update-user/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody SignupRequestDto updateRequest) {
         User existingUser = userRepository.findById(id).orElse(null);
@@ -249,6 +248,7 @@ public class AuthController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         User user = userRepository.findById(id).orElse(null);
@@ -259,7 +259,7 @@ public class AuthController {
         }
     }
 
-@DeleteMapping("/users/{id}")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long id) {
         try {
             userRepository.deleteById(id);
@@ -268,6 +268,5 @@ public class AuthController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 
 }

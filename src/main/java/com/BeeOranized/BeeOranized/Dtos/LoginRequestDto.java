@@ -1,13 +1,10 @@
 package com.BeeOranized.BeeOranized.Dtos;
 
-
 public class LoginRequestDto {
-
 
     private String userEmail;
 
     private String userPassword;
-
 
     public String getUserPassword() {
         return userPassword;
@@ -25,7 +22,7 @@ public class LoginRequestDto {
         this.userEmail = userEmail;
     }
 
-    public LoginRequestDto(String userEmail,String userPassword) {
+    public LoginRequestDto(String userEmail, String userPassword) {
         super();
         this.userEmail = userEmail;
         this.userPassword = userPassword;
@@ -34,6 +31,5 @@ public class LoginRequestDto {
     public LoginRequestDto() {
         super();
     }
-
 
 }

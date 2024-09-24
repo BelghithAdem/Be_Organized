@@ -8,7 +8,6 @@ import com.BeeOranized.BeeOranized.Repository.ConversationRepository;
 import com.BeeOranized.BeeOranized.Repository.UserRepository;
 import com.BeeOranized.BeeOranized.Security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,9 +30,11 @@ public class UserService {
     private EmailService emailService;
     @Autowired
     private UserRepository userRepository;
-    public List<User> getAllUser(){
+
+    public List<User> getAllUser() {
         return userRepository.findAll();
     }
+
     public String generateResetPasswordToken(User user) {
         User existingUser = userRepository.findByUserEmail(user.getUserEmail()).orElse(null);
         if (existingUser == null) {
@@ -41,7 +42,7 @@ public class UserService {
         }
 
         String resetPasswordToken = UUID.randomUUID().toString();
-        System.out.println("user reset password is "+resetPasswordToken);
+        System.out.println("user reset password is " + resetPasswordToken);
 
         // Save the token to the user entity
         existingUser.setResetPasswordToken(resetPasswordToken);
@@ -49,7 +50,8 @@ public class UserService {
 
         return resetPasswordToken;
     }
-    private  void sendResetPasswordEmail(User user, String resetPasswordToken) {
+
+    private void sendResetPasswordEmail(User user, String resetPasswordToken) {
         // Prepare email content
         String subject = "Reset Password Request";
         String message = "Dear User,\n\nYou have requested to reset your password.\n" +
@@ -60,6 +62,7 @@ public class UserService {
         // Send email to the user
         emailService.sendEmail(user.getUserEmail(), subject, message);
     }
+
     public boolean resetPassword(String userEmail, String resetPasswordToken, String newPassword) {
         Optional<User> optionalExistingUser = userRepository.findByUserEmail(userEmail);
         if (optionalExistingUser.isPresent()) {
@@ -81,14 +84,13 @@ public class UserService {
         }
     }
 
-
-
     public List<UserDataDTO> getAllUsersExcept(Long userId) {
         List<User> users = userRepository.findAllExceptUser(userId);
         return users.stream()
                 .map(this::convertToUserDataDTO)
                 .collect(Collectors.toList());
     }
+
     public ResponseEntity<ApiResponsee> findConversationIdByUser1IdAndUser2Id(int user1Id, int user2Id) {
         Long conversationId;
         Optional<User> user1 = userRepository.findById((long) user1Id);
@@ -103,7 +105,8 @@ public class UserService {
                             .build());
         }
 
-        Optional<Conversation> existingConversation = conversationRepository.findConversationByUsers(user1.get(), user2.get());
+        Optional<Conversation> existingConversation = conversationRepository.findConversationByUsers(user1.get(),
+                user2.get());
         if (existingConversation.isPresent()) {
             conversationId = existingConversation.get().getConversationId();
         } else {
@@ -150,13 +153,10 @@ public class UserService {
         String[] nameParts = fullName.split(" ", 2);
         if (nameParts.length == 1) {
             // If there's no space, use the full name as both first and last name
-            return new String[]{nameParts[0], nameParts[0]};
+            return new String[] { nameParts[0], nameParts[0] };
         } else {
             return nameParts;
         }
     }
 
-    }
-
-
-
+}

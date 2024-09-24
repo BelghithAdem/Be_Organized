@@ -7,15 +7,14 @@ import javax.persistence.Table;
 import java.util.Set;
 
 @Entity
-@Table(name="ChefScrums")
+@Table(name = "ChefScrums")
 @DiscriminatorValue("chefScrum")
 public class ChefScrum extends User {
 
-    public ChefScrum(String name,String email, String password, String city,
-                     Set<Role> roles
-    ) {
+    public ChefScrum(String name, String email, String password, String city,
+            Set<Role> roles) {
 
-        super(name,email, password, city, roles );
+        super(name, email, password, city, roles);
         this.chefScrumFirstName = chefScrumFirstName;
         this.chefScrumLastName = chefScrumLastName;
         this.chefScrumBirthDay = chefScrumBirthDay;

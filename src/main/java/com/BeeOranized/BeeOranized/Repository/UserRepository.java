@@ -10,7 +10,9 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUserEmail(String userEmail);
+
     Boolean existsByUserEmail(String userEmail);
+
     Optional<User> findByResetPasswordToken(String resetPasswordToken);
 
     @Query("SELECT u FROM User u WHERE u.userId != :userId")

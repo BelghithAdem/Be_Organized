@@ -14,6 +14,7 @@ public class ProjectService {
     private EmailService emailService;
     @Autowired
     private ProjectRepository projectRepository;
+
     @Transactional
     public Project createProject(Project project) {
         Project createdProject = projectRepository.save(project);
@@ -23,17 +24,20 @@ public class ProjectService {
 
         return createdProject;
     }
+
     private void sendProjectNotification(Project project) {
         // Fetch assigned users' email addresses from the project entity
         List<String> assignedUsers = project.getAssignedUsers();
 
         // Prepare email content
         String subject = "New Project Created: " + project.getTitle();
-        String message = "Dear User,\n\nA new project has been created: " + "<strong>" + project.getTitle() + "</strong>" +
+        String message = "Dear User,\n\nA new project has been created: " + "<strong>" + project.getTitle()
+                + "</strong>" +
                 "\nYou are assigned to this project as a team member.\n\nProject Details:\n" +
-                "Description: " + "<strong>" + project.getDescription() + "</strong>" + "\nStart Date: " + "<strong>" + project.getStartDate() +
-                "</strong>" + "\nEnd Date: " + "<strong>" + project.getEndDate() + "</strong>" + "\n\nRegards,\nYour Team";
-
+                "Description: " + "<strong>" + project.getDescription() + "</strong>" + "\nStart Date: " + "<strong>"
+                + project.getStartDate() +
+                "</strong>" + "\nEnd Date: " + "<strong>" + project.getEndDate() + "</strong>"
+                + "\n\nRegards,\nYour Team";
 
         // Send email to each assigned user
         for (String userEmail : assignedUsers) {
@@ -41,35 +45,45 @@ public class ProjectService {
         }
     }
 
-    public List<Project> getProjectsByScrumMaster(String scrumMaster){
+    public List<Project> getProjectsByScrumMaster(String scrumMaster) {
         return projectRepository.findByScrumMaster(scrumMaster);
     }
-    public List<Project> getAllProjects(){
+
+    public List<Project> getAllProjects() {
         return projectRepository.findAll();
     }
-    public Project updateProject(Project project){
+
+    public Project updateProject(Project project) {
         return projectRepository.save(project);
     }
-    public void deleteProject(Long id){
+
+    public void deleteProject(Long id) {
         projectRepository.deleteById(id);
     }
-   /* public List<Project> getProjectsByUser(String user){
-        return projectRepository.findByAssignedUsersContaining(user);
-    }*/
-    public List<Project> getProjectsByUserorScrumMaster(String assignedUsers, String scrumMaster){
+
+    /*
+     * public List<Project> getProjectsByUser(String user){
+     * return projectRepository.findByAssignedUsersContaining(user);
+     * }
+     */
+    public List<Project> getProjectsByUserorScrumMaster(String assignedUsers, String scrumMaster) {
         return projectRepository.findByAssignedUsersContainingOrScrumMaster(assignedUsers, scrumMaster);
     }
-    public List<Project> getProjectsByAssignedUsers(String assignedUsers){
+
+    public List<Project> getProjectsByAssignedUsers(String assignedUsers) {
         return projectRepository.findByAssignedUser(assignedUsers);
     }
-    public List<Project> getProjectsByAssignedUserOrScrumMaster(String assignedUsers, String scrumMaster){
+
+    public List<Project> getProjectsByAssignedUserOrScrumMaster(String assignedUsers, String scrumMaster) {
         return projectRepository.findByAssignedUsersContainingOrScrumMaster(assignedUsers, scrumMaster);
     }
-    public Project updateProjectbyid(Long id, Project project){
+
+    public Project updateProjectbyid(Long id, Project project) {
         project.setId(id);
         return projectRepository.save(project);
     }
-    public Project getProjectById(Long id){
+
+    public Project getProjectById(Long id) {
         return projectRepository.findById(id).orElse(null);
     }
 
